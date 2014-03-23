@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Shapes</title>
+		<script type="text/javascript" charset="utf-8">
+			function pageLoaded(){
+
+				// This project was created a Google's Art`Dev hackathon March 2014 by Dónall O'Donoghue
+
+				// Get a handle to the canvas object
+				var canvas = document.getElementById('testcanvas');  
+				var context = canvas.getContext('2d');
+
+				//Make it full screen but not overlapping with scrollbars
+				context.canvas.width  = window.innerWidth  - 50;
+ 				context.canvas.height = window.innerHeight - 50;
+			
+				// Storing screen size in a variable
+				var canvasWidth = window.innerWidth  - 50;
+				var canvasHeight = window.innerHeight  - 50;
+				
+				//  short for red, green, blue, opacity etc.
+				var r,g,b,o,i,j;
+				var space = 20;
+				var halfspace = space/2;
+				
+				// Animate every 60 milisconds
+				setInterval(DrawAll,60);
+				
+				//1 function to call them all
+				function DrawAll(){
+					DrawBackground()
+					context.rotate(Math.PI/360);	//Rotate the canvas by 1 degree befor drawing bars
+					DrawVerticalBars()
+					DrawHorizontalBars()	
+				}
+				
+				//A function the draws a colorful backgrounf
+				function DrawBackground(){
+					randomFillStyle();						
+					drawRect(0,0,canvasWidth,canvasHeight);
+				}
+				
+				//Draw Vertical Bars
+				function DrawVerticalBars(){	
+					for (i = -canvasWidth ; i <= canvasWidth*2; i++)
+					{
+						randomFillStyle();
+						drawRect(-canvasWidth+(i*space),-canvasHeight,halfspace,canvasHeight*3);
+					}
+				}
+				
+				//DrawHorizontal Bars
+				function DrawHorizontalBars(){		
+					for (j = -canvasHeight; j <= canvasHeight*2; j++)
+					{
+						randomFillStyle();
+						drawRect(0,j*space,canvasWidth,halfspace);
+					}
+				}
+				
+				// Draw a rectangle at x,y co-ordinates with your width w and height h
+				function drawRect(x,y,w,h)
+				{
+					context.fillRect (x,y,w,h);
+				}
+				
+				// Generate a random number for color use
+				function getRandom() 
+  				{
+    					return Math.floor(Math.random()*255);
+  				}
+  				
+  				// Change the fill style to a completely random color , opacity is not random
+  				function randomFillStyle()
+  				{
+  					r = getRandom() ;
+					g = getRandom() ;
+					b = getRandom() ;
+					context.fillStyle = "rgba("+r+","+g+","+b+",0.5)";
+  				}
+  		
+			}
+		</script>
+	</head>
+	<body onload="pageLoaded();">
+		<canvas width="640" height="480" id="testcanvas" style="border:1px solid black;">			
+			Your browser does not support the HTML5 Canvas tag. Please shift to a newer browser	
+		</canvas>
+	</body>
+</html>
